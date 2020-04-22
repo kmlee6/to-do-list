@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import ToDoListAPI from "../apis/ToDoListAPI";
 import { Alert } from "react-bootstrap";
+import "./ToDoList.css";
+import update from "immutability-helper";
 
 export default class ToDoList extends Component {
   constructor(props) {
@@ -16,7 +18,12 @@ export default class ToDoList extends Component {
   }
 
   markAsCompleted = (id) => {
-    console.log("Completed task " + id);
+    const { toDoList } = this.state;
+    const index = toDoList.findIndex((task) => task.id === id);
+    const updatedToDoList = update(toDoList, {
+      [index]: { $merge: { status: !toDoList[index].status } },
+    });
+    this.setState({ toDoList: updatedToDoList });
   };
 
   removeTask = (id) => {
@@ -29,7 +36,7 @@ export default class ToDoList extends Component {
     return this.state.toDoList.map((task, index) => {
       console.log(task.content);
       const content = task.status ? (
-        <span>task.content</span>
+        <span>{task.content}</span>
       ) : (
         <del>{task.content}</del>
       );
@@ -37,9 +44,9 @@ export default class ToDoList extends Component {
         <Alert
           key={index}
           variant="success"
+          onClick={() => this.markAsCompleted(task.id)}
+          onClose={() => this.removeTask(task.id)}
           dismissible
-          onClick={this.markAsCompleted(task.id)}
-          onClose={this.removeTask(task.id)}
         >
           {content}
         </Alert>
