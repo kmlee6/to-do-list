@@ -18,16 +18,21 @@ export default class ToDoContainer extends Component {
     });
   }
 
+  addToDoTask = (newTask) => {
+    ToDoListAPI.addToDOTask(newTask).then((response) => {
+      console.log(response);
+    });
+  };
+
   addTask = (content) => {
-    console.log(content);
     const { toDoList } = this.state;
     const newTask = { id: toDoList.size, content: content, status: true };
     // const updatedToDoList = toDoList.push(newTask);
     const updatedToDoList = update(toDoList, { $push: [newTask] });
-    this.setState({ toDoList: updatedToDoList });
+    this.setState({ toDoList: updatedToDoList }, this.addToDoTask(newTask));
   };
 
-  updateToDoList = (id, updatedTask) => {
+  updateToDoTask = (id, updatedTask) => {
     ToDoListAPI.updateToDoTask(id, updatedTask).then((response) => {
       console.log(response);
     });
@@ -41,7 +46,7 @@ export default class ToDoContainer extends Component {
     });
     this.setState(
       { toDoList: updatedToDoList },
-      this.updateToDoList(id, updatedToDoList[index])
+      this.updateToDoTask(id, updatedToDoList[index])
     );
   };
 

@@ -9,6 +9,10 @@ class ToDoListAPI {
   static updateToDoTask(id, data) {
     return axios.put(TO_DO_LIST_API_BASE_URL + "/" + id, data);
   }
+
+  static addToDOTask(data) {
+    return axios.post(TO_DO_LIST_API_BASE_URL, data);
+  }
 }
 
 export default ToDoListAPI;
