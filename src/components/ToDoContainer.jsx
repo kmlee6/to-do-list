@@ -17,6 +17,15 @@ export default class ToDoContainer extends Component {
     });
   }
 
+  addTask = (content) => {
+    console.log(content);
+    const { toDoList } = this.state;
+    const newTask = { id: toDoList.size, content: content, status: true };
+    // const updatedToDoList = toDoList.push(newTask);
+    const updatedToDoList = update(toDoList, { $push: [newTask] });
+    this.setState({ toDoList: updatedToDoList });
+  };
+
   markAsCompleted = (id) => {
     const { toDoList } = this.state;
     const index = toDoList.findIndex((task) => task.id === id);
@@ -36,12 +45,12 @@ export default class ToDoContainer extends Component {
   render() {
     return (
       <React.Fragment>
+        <TaskForm addTask={this.addTask} />
         <ToDoList
           toDoList={this.state.toDoList}
           markAsCompleted={this.markAsCompleted}
           removeTask={this.removeTask}
         />
-        <TaskForm />
       </React.Fragment>
     );
   }

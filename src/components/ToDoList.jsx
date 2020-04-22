@@ -3,10 +3,6 @@ import { Alert } from "react-bootstrap";
 import "./ToDoList.css";
 
 export default class ToDoList extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   renderToDoList = () => {
     const { toDoList, removeTask, markAsCompleted } = this.props;
 
