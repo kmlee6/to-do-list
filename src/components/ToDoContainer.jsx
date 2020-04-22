@@ -3,6 +3,7 @@ import update from "immutability-helper";
 import ToDoListAPI from "../apis/ToDoListAPI";
 import TaskForm from "./TaskForm";
 import ToDoList from "./ToDoList";
+import { Jumbotron, Container } from "react-bootstrap";
 
 export default class ToDoContainer extends Component {
   constructor(props) {
@@ -45,12 +46,16 @@ export default class ToDoContainer extends Component {
   render() {
     return (
       <React.Fragment>
-        <TaskForm addTask={this.addTask} />
-        <ToDoList
-          toDoList={this.state.toDoList}
-          markAsCompleted={this.markAsCompleted}
-          removeTask={this.removeTask}
-        />
+        <Jumbotron fluid>
+          <Container>
+            <TaskForm addTask={this.addTask} />
+            <ToDoList
+              toDoList={this.state.toDoList}
+              markAsCompleted={this.markAsCompleted}
+              removeTask={this.removeTask}
+            />
+          </Container>
+        </Jumbotron>
       </React.Fragment>
     );
   }
