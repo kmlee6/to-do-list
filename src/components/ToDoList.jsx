@@ -27,14 +27,15 @@ export default class ToDoList extends Component {
   };
 
   removeTask = (id) => {
-    console.log("------removeTask------");
-    console.log(id);
+    const { toDoList } = this.state;
+    const index = toDoList.findIndex((task) => task.id === id);
+    toDoList.splice(index, 1);
+    this.setState({ toDoList });
   };
 
   renderToDoList = () => {
     console.log("-----renderToDoList------");
     return this.state.toDoList.map((task, index) => {
-      console.log(task.content);
       const content = task.status ? (
         <span>{task.content}</span>
       ) : (
@@ -44,11 +45,10 @@ export default class ToDoList extends Component {
         <Alert
           key={index}
           variant="success"
-          onClick={() => this.markAsCompleted(task.id)}
           onClose={() => this.removeTask(task.id)}
           dismissible
         >
-          {content}
+          <span onClick={() => this.markAsCompleted(task.id)}>{content}</span>
         </Alert>
       );
     });

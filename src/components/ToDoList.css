@@ -1,3 +1,3 @@
-.alert-success:hover {
+.alert-success span:hover {
   cursor: pointer;
 }
