@@ -50,11 +50,17 @@ export default class ToDoContainer extends Component {
     );
   };
 
+  removeToDoTask = (id, task) => {
+    ToDoListAPI.removeToDOTask(id, task).then((response) => {
+      console.log(response);
+    });
+  };
+
   removeTask = (id) => {
     const { toDoList } = this.state;
     const index = toDoList.findIndex((task) => task.id === id);
-    toDoList.splice(index, 1);
-    this.setState({ toDoList });
+    const tasks = toDoList.splice(index, 1);
+    this.setState({ toDoList }, this.removeToDoTask(id, tasks[0]));
   };
 
   render() {

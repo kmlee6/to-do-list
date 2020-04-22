@@ -13,6 +13,10 @@ class ToDoListAPI {
   static addToDOTask(data) {
     return axios.post(TO_DO_LIST_API_BASE_URL, data);
   }
+
+  static removeToDOTask(id, data) {
+    return axios.delete(TO_DO_LIST_API_BASE_URL + "/" + id, data);
+  }
 }
 
 export default ToDoListAPI;
