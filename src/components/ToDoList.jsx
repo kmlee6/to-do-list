@@ -15,13 +15,33 @@ export default class ToDoList extends Component {
     });
   }
 
+  markAsCompleted = (id) => {
+    console.log("Completed task " + id);
+  };
+
+  removeTask = (id) => {
+    console.log("------removeTask------");
+    console.log(id);
+  };
+
   renderToDoList = () => {
     console.log("-----renderToDoList------");
     return this.state.toDoList.map((task, index) => {
       console.log(task.content);
+      const content = task.status ? (
+        <span>task.content</span>
+      ) : (
+        <del>{task.content}</del>
+      );
       return (
-        <Alert key={index} variant="success">
-          {task.content}
+        <Alert
+          key={index}
+          variant="success"
+          dismissible
+          onClick={this.markAsCompleted(task.id)}
+          onClose={this.removeTask(task.id)}
+        >
+          {content}
         </Alert>
       );
     });
