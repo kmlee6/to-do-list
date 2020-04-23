@@ -19,7 +19,7 @@ export default class ToDoContainer extends Component {
   };
 
   componentDidMount() {
-    setInterval(this.fetchLatestToDoList, 3000);
+    setInterval(this.fetchLatestToDoList, 5000);
   }
 
   addToDoTask = (newTask) => {
@@ -43,7 +43,6 @@ export default class ToDoContainer extends Component {
 
   markAsCompleted = (index, id) => {
     const { toDoList } = this.state;
-    // const index = toDoList.findIndex((task) => task.id === id);
     const updatedToDoList = update(toDoList, {
       [index]: { $merge: { status: !toDoList[index].status } },
     });
@@ -61,7 +60,6 @@ export default class ToDoContainer extends Component {
 
   removeTask = (index, id) => {
     const { toDoList } = this.state;
-    // const index = toDoList.findIndex((task) => task.id === id);
     const tasks = toDoList.splice(index, 1);
     this.setState({ toDoList }, this.removeToDoTask(id, tasks[0]));
   };
