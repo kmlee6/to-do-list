@@ -7,6 +7,7 @@ export default class ToDoList extends Component {
     const { toDoList, removeTask, markAsCompleted } = this.props;
 
     return toDoList.map((task, index) => {
+      const isDone = task.status ? "done" : "pending";
       const content = task.status ? (
         <span>{task.content}</span>
       ) : (
@@ -16,10 +17,10 @@ export default class ToDoList extends Component {
         <Alert
           key={index}
           variant="success"
-          onClose={() => removeTask(task.id)}
+          onClose={() => removeTask(index, task.id)}
           dismissible
         >
-          <span onClick={() => markAsCompleted(task.id)}>{content}</span>
+          <span onClick={() => markAsCompleted(index, task.id)}>{content}</span>
         </Alert>
       );
     });
